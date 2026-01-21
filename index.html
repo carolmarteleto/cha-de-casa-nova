@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Chá de Casa Nova 🏡</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #f6f6f6, #ffffff);
+      color: #333;
+    }
+    header {
+      text-align: center;
+      padding: 40px 20px;
+    }
+    header h1 {
+      font-weight: 600;
+      margin-bottom: 10px;
+    }
+    header p {
+      max-width: 500px;
+      margin: auto;
+      font-size: 15px;
+      color: #666;
+    }
+    .container {
+      max-width: 1100px;
+      margin: auto;
+      padding: 20px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 20px;
+    }
+    .card {
+      background: #fff;
+      border-radius: 16px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+      overflow: hidden;
+      cursor: pointer;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    .card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 14px 30px rgba(0,0,0,0.12);
+    }
+    .card img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+    }
+    .card-content {
+      padding: 15px;
+      text-align: center;
+    }
+    .card-content h3 {
+      font-size: 16px;
+      margin: 0;
+      font-weight: 500;
+    }
+    footer {
+      text-align: center;
+      padding: 30px 15px;
+      font-size: 13px;
+      color: #777;
+    }
+    footer span {
+      color: #999;
+    }
+    .rsvp {
+      background: #ffffff;
+      max-width: 500px;
+      margin: 40px auto;
+      padding: 25px;
+      border-radius: 16px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+      text-align: center;
+    }
+    .rsvp h2 { margin-top: 0; }
+    .rsvp input, .rsvp select {
+      width: 100%;
+      padding: 10px;
+      margin: 10px 0;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      font-family: 'Poppins', sans-serif;
+    }
+    .rsvp button {
+      background: #333;
+      color: white;
+      border: none;
+      padding: 12px 20px;
+      border-radius: 8px;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+    .rsvp button:hover { opacity: 0.9; }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Chá de Casa Nova 🏡</h1>
+  <p>
+    <strong>Carol & Julio</strong> preparam esse momento com muito carinho 💛<br>
+    Se quiser presentear, é só clicar no item escolhido.<br>
+    O presente <strong>não é obrigatório</strong>.
+  </p>
+  <p style="margin-top:10px; font-size:14px; color:#555;">
+    📅 <strong>28/02/2026</strong><br>
+    Confirmação de presença até <strong>21/02/2026</strong>
+  </p>
+</header>
+
+<div class="container" id="lista"></div>
+
+<section class="rsvp">
+  <h2>Confirme sua presença 💌</h2>
+  <p>Ficaremos muito felizes em saber se você poderá estar conosco.</p>
+  <form id="rsvpForm">
+    <input type="text" id="nome" placeholder="Seu nome" required>
+    <select id="presenca" required>
+      <option value="">Você vai comparecer?</option>
+      <option value="Sim">Sim, estarei presente 😊</option>
+      <option value="Não">Não poderei ir 😢</option>
+    </select>
+    <button type="submit">Confirmar presença</button>
+  </form>
+  <p id="mensagemConfirmacao"></p>
+  <p style="font-size:12px; color:#777; margin-top:10px;">⏰ Confirmações até 21/02/2026</p>
+  <p id="mensagemConfirmacao"></p>
+</section>
+
+<footer>
+  Com carinho 💕 <span>— obrigada por fazer parte desse momento</span>
+</footer>
+
+<script>
+  const itens = [
+    { nome: "Jogo de Pratos", imagem: "https://images.unsplash.com/photo-1601004890684-d8cbf643f5f2" },
+    { nome: "Jogo de Copos", imagem: "https://images.unsplash.com/photo-1528825871115-3581a5387919" },
+    { nome: "Panos de Prato", imagem: "https://images.unsplash.com/photo-1586864387789-628af9feed72" },
+    { nome: "Porta-temperos", imagem: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c" },
+    { nome: "Tapete de Cozinha", imagem: "https://images.unsplash.com/photo-1615874959474-d609969a20ed" },
+    { nome: "Assadeiras", imagem: "https://images.unsplash.com/photo-1606788075765-42f94a3cfe40" },
+    { nome: "Jogo de Toalhas", imagem: "https://images.unsplash.com/photo-1600490036275-35f5f1656861" }
+  ];
+
+  const lista = document.getElementById("lista");
+  let escolhidos = JSON.parse(localStorage.getItem("escolhidos")) || [];
+
+  function render() {
+    lista.innerHTML = "";
+    itens
+      .filter(item => !escolhidos.includes(item.nome))
+      .forEach(item => {
+        const card = document.createElement("div");
+        card.className = "card";
+        card.innerHTML = `
+          <img src="${item.imagem}" alt="${item.nome}">
+          <div class="card-content">
+            <h3>${item.nome}</h3>
+          </div>
+        `;
+        card.onclick = () => {
+          const confirmar = confirm(`Você quer escolher: ${item.nome}?`);
+          if (confirmar) {
+            escolhidos.push(item.nome);
+            localStorage.setItem("escolhidos", JSON.stringify(escolhidos));
+                render();
+
+  /* ===== RSVP COM FIREBASE ===== */
+  // 1️⃣ Crie um projeto em https://console.firebase.google.com
+  // 2️⃣ Ative Firestore Database
+  // 3️⃣ Cole abaixo suas credenciais
+
+  const firebaseConfig = {
+    apiKey: "SUA_API_KEY",
+    authDomain: "SEU_PROJETO.firebaseapp.com",
+    projectId: "SEU_PROJETO",
+  };
+
+  // Firebase SDKs
+  const script1 = document.createElement('script');
+  script1.src = "https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js";
+  document.head.appendChild(script1);
+
+  const script2 = document.createElement('script');
+  script2.src = "https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js";
+  document.head.appendChild(script2);
+
+  script2.onload = () => {
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.firestore();
+
+    const form = document.getElementById("rsvpForm");
+    const mensagem = document.getElementById("mensagemConfirmacao");
+
+    form.addEventListener("submit", async function(e) {
+      e.preventDefault();
+      const nome = document.getElementById("nome").value;
+      const presenca = document.getElementById("presenca").value;
+
+      if (!nome || !presenca) return;
+
+      await db.collection("confirmacoes").add({
+        nome: nome,
+        presenca: presenca,
+        data: new Date()
+      });
+
+      mensagem.textContent = `Obrigada, ${nome}! Sua presença foi registrada 💖
+Carol & Julio agradecem!`;
+      form.reset();
+    });
+  };
+</script>
+
+</body>
+</html>
