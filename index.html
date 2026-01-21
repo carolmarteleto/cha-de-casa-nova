@@ -21,33 +21,80 @@
     h1 {
       text-align: center;
       font-size: 22px;
-      margin-bottom: 4px;
-    }
-
-    h2 {
-      text-align: center;
-      font-size: 18px;
-      margin: 18px 0 10px;
+      margin-bottom: 6px;
     }
 
     .subtitle {
       text-align: center;
       font-size: 14px;
       color: #777;
-      margin-bottom: 20px;
+      margin-bottom: 14px;
     }
 
-    .info {
+    .convite {
       background: #fff;
       border-radius: 16px;
-      padding: 12px;
+      padding: 14px;
       text-align: center;
       font-size: 14px;
-      margin-bottom: 25px;
+      margin-bottom: 18px;
       box-shadow: 0 2px 6px rgba(0,0,0,0.08);
     }
 
-    /* GRID PRESENTES */
+    .info {
+      text-align: center;
+      font-size: 14px;
+      color: #555;
+      margin-bottom: 22px;
+    }
+
+    h2 {
+      text-align: center;
+      font-size: 18px;
+      margin: 20px 0 12px;
+    }
+
+    /* PRESENÇA */
+    .card-presenca {
+      background: #fff;
+      border-radius: 16px;
+      padding: 14px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+    }
+
+    input, select {
+      width: 100%;
+      padding: 10px;
+      font-size: 14px;
+      border-radius: 10px;
+      border: 1px solid #ccc;
+      margin-bottom: 12px;
+    }
+
+    button {
+      background: #c89b7b;
+      color: white;
+      border: none;
+      padding: 10px;
+      border-radius: 20px;
+      width: 100%;
+      font-size: 14px;
+      cursor: pointer;
+    }
+
+    /* LISTA PRESENTES */
+    #area-presentes {
+      display: none;
+      margin-top: 25px;
+    }
+
+    .texto-presente {
+      text-align: center;
+      font-size: 14px;
+      color: #666;
+      margin-bottom: 14px;
+    }
+
     #lista-presentes {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
@@ -74,39 +121,6 @@
       margin: 6px 0;
     }
 
-    .card button {
-      background: #c89b7b;
-      color: white;
-      border: none;
-      padding: 7px;
-      border-radius: 18px;
-      width: 100%;
-      font-size: 12px;
-      cursor: pointer;
-    }
-
-    .card button:hover {
-      opacity: 0.9;
-    }
-
-    /* PRESENÇA */
-    .card-presenca {
-      background: #fff;
-      border-radius: 16px;
-      padding: 14px;
-      margin-top: 25px;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.08);
-    }
-
-    input, select {
-      width: 100%;
-      padding: 10px;
-      font-size: 14px;
-      border-radius: 10px;
-      border: 1px solid #ccc;
-      margin-bottom: 12px;
-    }
-
     .footer {
       text-align: center;
       font-size: 13px;
@@ -121,13 +135,15 @@
   <h1>🏡 Chá de Casa Nova</h1>
   <div class="subtitle">Carol & Julio</div>
 
+  <div class="convite">
+  Nosso novo lar está pronto, e nada faria mais sentido do que celebrá-lo com pessoas queridas.<br>
+    Contamos com a sua presença para celebrar esse momento especial conosco.
+  </div>
+
   <div class="info">
     📅 <b>28/02/2026</b><br>
     📝 Confirmar presença até <b>21/02/2026</b>
   </div>
-
-  <h2>🎁 Sugestões de Presentes</h2>
-  <div id="lista-presentes"></div>
 
   <h2>✍️ Confirme sua Presença</h2>
   <div class="card-presenca">
@@ -137,7 +153,17 @@
       <option value="Sim">Sim</option>
       <option value="Não">Não</option>
     </select>
-    <button onclick="confirmarPresenca()">Confirmar</button>
+    <button onclick="confirmarPresenca()">Confirmar presença</button>
+  </div>
+
+  <!-- ÁREA DOS PRESENTES (SÓ APARECE DEPOIS) -->
+  <div id="area-presentes">
+    <h2>🎁 Lista de Presentes</h2>
+    <div class="texto-presente">
+      Se quiser nos presentear com algum item,<br>
+      clique na lista abaixo e selecione o presente 💛
+    </div>
+    <div id="lista-presentes"></div>
   </div>
 
   <div class="footer">
@@ -158,26 +184,10 @@
     const db = firebase.firestore();
 
     const presentes = [
-      {
-        id: "jogo-pratos",
-        nome: "Jogo de pratos",
-        img: "https://via.placeholder.com/300"
-      },
-      {
-        id: "panela",
-        nome: "Panela",
-        img: "https://via.placeholder.com/300"
-      },
-      {
-        id: "jogo-talheres",
-        nome: "Jogo de talheres",
-        img: "https://via.placeholder.com/300"
-      },
-      {
-        id: "conjunto-copos",
-        nome: "Conjunto de copos",
-        img: "https://via.placeholder.com/300"
-      }
+      { id: "jogo-pratos", nome: "Jogo de pratos", img: "https://via.placeholder.com/300" },
+      { id: "panela", nome: "Panela", img: "https://via.placeholder.com/300" },
+      { id: "jogo-talheres", nome: "Jogo de talheres", img: "https://via.placeholder.com/300" },
+      { id: "conjunto-copos", nome: "Conjunto de copos", img: "https://via.placeholder.com/300" }
     ];
 
     const lista = document.getElementById("lista-presentes");
@@ -220,12 +230,9 @@
         data: new Date()
       });
 
+      document.getElementById("area-presentes").style.display = "block";
       alert("Presença confirmada! 💛");
-      document.getElementById("nome").value = "";
-      document.getElementById("presenca").value = "";
     }
-
-    carregarPresentes();
   </script>
 
 </body>
