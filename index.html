@@ -51,7 +51,24 @@
     h2 {
       text-align: center;
       font-size: 18px;
-      margin: 20px 0 12px;
+      margin: 22px 0 10px;
+    }
+
+    /* LINK PRESENTES */
+    .presente-link {
+      text-align: center;
+      font-size: 14px;
+      margin-bottom: 18px;
+    }
+
+    .presente-link a {
+      color: #c89b7b;
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    .presente-link a:hover {
+      text-decoration: underline;
     }
 
     /* PRESENÇA */
@@ -60,6 +77,7 @@
       border-radius: 16px;
       padding: 14px;
       box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+      margin-bottom: 20px;
     }
 
     input, select {
@@ -85,14 +103,7 @@
     /* LISTA PRESENTES */
     #area-presentes {
       display: none;
-      margin-top: 25px;
-    }
-
-    .texto-presente {
-      text-align: center;
-      font-size: 14px;
-      color: #666;
-      margin-bottom: 14px;
+      margin-top: 10px;
     }
 
     #lista-presentes {
@@ -136,8 +147,8 @@
   <div class="subtitle">Carol & Julio</div>
 
   <div class="convite">
-  Nosso novo lar está pronto, e nada faria mais sentido do que celebrá-lo com pessoas queridas.<br>
-    Contamos com a sua presença para celebrar esse momento especial conosco.
+    Um novo capítulo começa, e queremos celebrá-lo com pessoas queridas.<br>
+    É com muita alegria que convidamos vocês para conhecer o nosso novo lar.
   </div>
 
   <div class="info">
@@ -156,13 +167,13 @@
     <button onclick="confirmarPresenca()">Confirmar presença</button>
   </div>
 
-  <!-- ÁREA DOS PRESENTES (SÓ APARECE DEPOIS) -->
+  <h2>🎁 Sugestão de Presentes</h2>
+  <div class="presente-link">
+    Se quiser nos presentear com algum item,  
+    <a href="#" onclick="mostrarPresentes()">clique aqui para acessar a lista de presentes</a>.
+  </div>
+
   <div id="area-presentes">
-    <h2>🎁 Lista de Presentes</h2>
-    <div class="texto-presente">
-      Se quiser nos presentear com algum item,<br>
-      clique na lista abaixo e selecione o presente 💛
-    </div>
     <div id="lista-presentes"></div>
   </div>
 
@@ -191,6 +202,11 @@
     ];
 
     const lista = document.getElementById("lista-presentes");
+
+    function mostrarPresentes() {
+      document.getElementById("area-presentes").style.display = "block";
+      carregarPresentes();
+    }
 
     function carregarPresentes() {
       lista.innerHTML = "";
@@ -230,7 +246,6 @@
         data: new Date()
       });
 
-      document.getElementById("area-presentes").style.display = "block";
       alert("Presença confirmada! 💛");
     }
   </script>
