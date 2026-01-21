@@ -9,118 +9,147 @@
   <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
 
-style>
-  body {
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
-    background: #f7f4f2;
-    margin: 0;
-    padding: 12px;
-  }
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+      background: #f7f4f2;
+      margin: 0;
+      padding: 14px;
+      color: #333;
+    }
 
-  h1 {
-    text-align: center;
-    font-size: 22px;
-    margin-bottom: 5px;
-  }
+    h1 {
+      text-align: center;
+      font-size: 22px;
+      margin-bottom: 4px;
+    }
 
-  h2 {
-    text-align: center;
-    font-size: 18px;
-    margin: 15px 0 10px;
-  }
+    h2 {
+      text-align: center;
+      font-size: 18px;
+      margin: 18px 0 10px;
+    }
 
-  .info {
-    text-align: center;
-    font-size: 14px;
-    color: #555;
-    margin-bottom: 20px;
-  }
+    .subtitle {
+      text-align: center;
+      font-size: 14px;
+      color: #777;
+      margin-bottom: 20px;
+    }
 
-  /* GRID MOBILE */
-  #lista-presentes {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 12px;
-  }
+    .info {
+      background: #fff;
+      border-radius: 16px;
+      padding: 12px;
+      text-align: center;
+      font-size: 14px;
+      margin-bottom: 25px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+    }
 
-  .card {
-    background: #fff;
-    border-radius: 14px;
-    padding: 8px;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.08);
-  }
+    /* GRID PRESENTES */
+    #lista-presentes {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+    }
 
-  .card img {
-    width: 100%;
-    height: 110px;
-    object-fit: cover;
-    border-radius: 12px;
-  }
+    .card {
+      background: #fff;
+      border-radius: 16px;
+      padding: 8px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+    }
 
-  .card p {
-    font-size: 13px;
-    text-align: center;
-    margin: 6px 0;
-  }
+    .card img {
+      width: 100%;
+      height: 110px;
+      object-fit: cover;
+      border-radius: 12px;
+    }
 
-  .card button {
-    background: #c89b7b;
-    color: #fff;
-    border: none;
-    padding: 7px;
-    border-radius: 16px;
-    width: 100%;
-    font-size: 12px;
-  }
+    .card p {
+      font-size: 13px;
+      text-align: center;
+      margin: 6px 0;
+    }
 
-  /* CONFIRMAÇÃO DE PRESENÇA */
-  input, select {
-    width: 100%;
-    padding: 10px;
-    font-size: 14px;
-    border-radius: 8px;
-    border: 1px solid #ccc;
-  }
+    .card button {
+      background: #c89b7b;
+      color: white;
+      border: none;
+      padding: 7px;
+      border-radius: 18px;
+      width: 100%;
+      font-size: 12px;
+      cursor: pointer;
+    }
 
-  .card-presenca {
-    margin-top: 25px;
-  }
-</style>
+    .card button:hover {
+      opacity: 0.9;
+    }
 
+    /* PRESENÇA */
+    .card-presenca {
+      background: #fff;
+      border-radius: 16px;
+      padding: 14px;
+      margin-top: 25px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+    }
+
+    input, select {
+      width: 100%;
+      padding: 10px;
+      font-size: 14px;
+      border-radius: 10px;
+      border: 1px solid #ccc;
+      margin-bottom: 12px;
+    }
+
+    .footer {
+      text-align: center;
+      font-size: 13px;
+      color: #777;
+      margin-top: 25px;
+    }
+  </style>
 </head>
 
 <body>
 
   <h1>🏡 Chá de Casa Nova</h1>
-  <h2>Carol & Julio</h2>
+  <div class="subtitle">Carol & Julio</div>
 
   <div class="info">
-    <p>📅 Data prevista: <b>28/02/2026</b></p>
-    <p>📝 Confirmar presença até: <b>21/02/2026</b></p>
+    📅 <b>28/02/2026</b><br>
+    📝 Confirmar presença até <b>21/02/2026</b>
   </div>
 
-  <h2>🎁 Lista de Presentes</h2>
+  <h2>🎁 Sugestões de Presentes</h2>
   <div id="lista-presentes"></div>
 
-  <h2>✍️ Confirmação de Presença</h2>
-
-  <div class="card card-presenca">
+  <h2>✍️ Confirme sua Presença</h2>
+  <div class="card-presenca">
     <input type="text" id="nome" placeholder="Seu nome" />
     <select id="presenca">
       <option value="">Você vai?</option>
       <option value="Sim">Sim</option>
       <option value="Não">Não</option>
     </select>
-    <button onclick="confirmarPresenca()">Confirmar presença</button>
+    <button onclick="confirmarPresenca()">Confirmar</button>
+  </div>
+
+  <div class="footer">
+    💛 Sua presença é o nosso melhor presente 💛
   </div>
 
   <script>
-    // CONFIGURAÇÃO FIREBASE
     const firebaseConfig = {
       apiKey: "AIzaSyDmDv4anmWYV5WZ36dSDaoWzhkupINqokg",
       authDomain: "cha-casa-nova-carol-julio.firebaseapp.com",
       projectId: "cha-casa-nova-carol-julio",
-      storageBucket: "cha-casa-nova-carol-julio.appspot.com",
+      storageBucket: "cha-casa-nova-carol-julio.firebasestorage.app",
       messagingSenderId: "74216043242",
       appId: "1:74216043242:web:37e79ed5cdb458db759d93"
     };
@@ -128,88 +157,72 @@ style>
     firebase.initializeApp(firebaseConfig);
     const db = firebase.firestore();
 
-    // LISTA DE PRESENTES
-   const presentes = [
-  {
-    id: "jogo-pratos",
-    nome: "Jogo de pratos",
-    img: "https://via.placeholder.com/300"
-  },
-  {
-    id: "panela",
-    nome: "Panela",
-    img: "https://via.placeholder.com/300"
-  },
-  {
-    id: "jogo-talheres",
-    nome: "Jogo de talheres",
-    img: "https://via.placeholder.com/300"
-  },
-  {
-    id: "conjunto-copos",
-    nome: "Conjunto de copos",
-    img: "https://via.placeholder.com/300"
-  },
-  {
-    id: "tapete-cozinha",
-    nome: "Tapete para cozinha",
-    img: "https://via.placeholder.com/300"
-  },
-  {
-    id: "porta-temperos",
-    nome: "Porta-temperos",
-    img: "https://via.placeholder.com/300"
-  }
-];
+    const presentes = [
+      {
+        id: "jogo-pratos",
+        nome: "Jogo de pratos",
+        img: "https://via.placeholder.com/300"
+      },
+      {
+        id: "panela",
+        nome: "Panela",
+        img: "https://via.placeholder.com/300"
+      },
+      {
+        id: "jogo-talheres",
+        nome: "Jogo de talheres",
+        img: "https://via.placeholder.com/300"
+      },
+      {
+        id: "conjunto-copos",
+        nome: "Conjunto de copos",
+        img: "https://via.placeholder.com/300"
+      }
+    ];
 
     const lista = document.getElementById("lista-presentes");
 
     function carregarPresentes() {
       lista.innerHTML = "";
-
       presentes.forEach(p => {
         db.collection("presentes").doc(p.id).get().then(doc => {
-          if (doc.exists && doc.data().escolhido) return;
-
-          const div = document.createElement("div");
-          div.className = "card";
-          div.innerHTML = `
-            <img src="${p.img}" />
-            <p><b>${p.nome}</b></p>
-            <button onclick="escolherPresente('${p.id}')">Escolher presente</button>
-          `;
-          lista.appendChild(div);
+          if (!doc.exists || !doc.data().escolhido) {
+            const div = document.createElement("div");
+            div.className = "card";
+            div.innerHTML = `
+              <img src="${p.img}">
+              <p><b>${p.nome}</b></p>
+              <button onclick="escolherPresente('${p.id}', this)">Escolher</button>
+            `;
+            lista.appendChild(div);
+          }
         });
       });
     }
 
-    function escolherPresente(id) {
-      db.collection("presentes").doc(id).set({ escolhido: true })
-        .then(() => carregarPresentes());
+    function escolherPresente(id, botao) {
+      db.collection("presentes").doc(id).set({ escolhido: true });
+      botao.parentElement.remove();
     }
 
-    // CONFIRMAÇÃO DE PRESENÇA
     function confirmarPresenca() {
-      const nome = document.getElementById("nome").value.trim();
+      const nome = document.getElementById("nome").value;
       const presenca = document.getElementById("presenca").value;
 
       if (!nome || !presenca) {
-        alert("Preencha todos os campos");
+        alert("Preencha tudo 😊");
         return;
       }
 
       db.collection("confirmacoes").add({
-        nome: nome,
-        presenca: presenca,
+        nome,
+        presenca,
         data: new Date()
-      }).then(() => {
-        alert("Presença confirmada!");
-        document.getElementById("nome").value = "";
-        document.getElementById("presenca").value = "";
-      }).catch(err => {
-        alert("Erro ao confirmar presença");
-        console.error(err);
       });
+
+      alert("Presença confirmada! 💛");
+      document.getElementById("nome").value = "";
+      document.getElementById("presenca").value = "";
     }
 
     carregarPresentes();
