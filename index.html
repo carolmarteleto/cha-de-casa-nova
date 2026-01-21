@@ -176,15 +176,19 @@
   // 2️⃣ Ative Firestore Database
   // 3️⃣ Cole abaixo suas credenciais
 
-  const firebaseConfig = {
-    aapiKey: "AIzaSyDmDv4anmWYV5WZ36dSDaoWzhkupINqokg",
+ <script> 
+ const firebaseConfig = {
+  aapiKey: "AIzaSyDmDv4anmWYV5WZ36dSDaoWzhkupINqokg",
   authDomain: "cha-casa-nova-carol-julio.firebaseapp.com",
   projectId: "cha-casa-nova-carol-julio",
   storageBucket: "cha-casa-nova-carol-julio.firebasestorage.app",
   messagingSenderId: "74216043242",
   appId: "1:74216043242:web:37e79ed5cdb458db759d93"
   };
-
+ firebase.initializeApp(firebaseConfig);
+  const db = firebase.firestore();
+</script>
+            
   // Firebase SDKs
   const script1 = document.createElement('script');
   script1.src = "https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js";
