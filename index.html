@@ -100,21 +100,25 @@
 
     function carregarPresentes() {
       lista.innerHTML = "";
-      presentes.forEach(p => {
-        const div = document.createElement("div");
-        div.className = "card";
-        div.innerHTML = `
-          <img src="${p.img}" />
-          <p><b>${p.nome}</b></p>
-          <button onclick="escolherPresente('${p.id}', this)">Escolher presente</button>
-        `;
-        lista.appendChild(div);
+
+  presentes.forEach(p => {
+    db.collection("presentes").doc(p.id).get().then(doc => {
+      if (doc.exists && doc.data().escolhido) return;
+
+      const div = document.createElement("div");
+      div.className = "card";
+      div.innerHTML = `
+        <img src="${p.img}" />
+        <p><b>${p.nome}</b></p>
+        <button onclick="escolherPresente('${p.id}')">Escolher presente</button>
+      `;
+      lista.appendChild(div);
       });
     }
 
     function escolherPresente(id, botao) {
-      db.collection("presentes").doc(id).set({ escolhido: true });
-      botao.parentElement.remove();
+      db.collection("presentes").doc(id).set({ escolhido: true })
+    .then(() => carregarPresentes());
     }
 
     function confirmarPresenca() {
