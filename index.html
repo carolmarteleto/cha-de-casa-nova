@@ -92,16 +92,8 @@
     const db = firebase.firestore();
 
     const presentes = [
-      {
-        id: "jogo-pratos",
-        nome: "Jogo de pratos",
-        img: "https://via.placeholder.com/300"
-      },
-      {
-        id: "panela",
-        nome: "Panela",
-        img: "https://via.placeholder.com/300"
-      }
+      { id: "jogo-pratos", nome: "Jogo de pratos", img: "https://via.placeholder.com/300" },
+      { id: "panela", nome: "Panela", img: "https://via.placeholder.com/300" }
     ];
 
     const lista = document.getElementById("lista-presentes");
@@ -120,4 +112,33 @@
       });
     }
 
-    function escolherPresente(id, botao)
+    function escolherPresente(id, botao) {
+      db.collection("presentes").doc(id).set({ escolhido: true });
+      botao.parentElement.remove();
+    }
+
+    function confirmarPresenca() {
+      const nome = document.getElementById("nome").value;
+      const presenca = document.getElementById("presenca").value;
+
+      if (!nome || !presenca) {
+        alert("Preencha todos os campos");
+        return;
+      }
+
+      db.collection("confirmacoes").add({
+        nome: nome,
+        presenca: presenca,
+        data: new Date()
+      });
+
+      alert("Presença confirmada!");
+      document.getElementById("nome").value = "";
+      document.getElementById("presenca").value = "";
+    }
+
+    carregarPresentes();
+  </script>
+
+</body>
+</html>
