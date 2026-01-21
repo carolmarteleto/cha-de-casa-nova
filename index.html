@@ -21,14 +21,24 @@
     h1 {
       text-align: center;
       font-size: 22px;
-      margin-bottom: 6px;
+      margin-bottom: 8px;
     }
 
     .subtitle {
       text-align: center;
       font-size: 14px;
       color: #777;
-      margin-bottom: 14px;
+      margin-bottom: 10px;
+    }
+
+    .destaque {
+      background: #fff;
+      border-radius: 16px;
+      padding: 12px;
+      text-align: center;
+      font-size: 14px;
+      margin-bottom: 16px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.08);
     }
 
     .convite {
@@ -66,7 +76,6 @@
       font-weight: 600;
     }
 
-    /* PRESENÇA */
     .card-presenca {
       background: #fff;
       border-radius: 16px;
@@ -125,14 +134,6 @@
       text-align: center;
       margin: 6px 0;
     }
-
-    .footer {
-      text-align: center;
-      font-size: 13px;
-      color: #666;
-      margin-top: 25px;
-      padding-bottom: 10px;
-    }
   </style>
 </head>
 
@@ -140,6 +141,12 @@
 
   <h1>🏡 Chá de Casa Nova</h1>
   <div class="subtitle">Carol & Julio</div>
+
+  <!-- FRASE NO INÍCIO -->
+  <div class="destaque">
+    Para deixar o encontro ainda mais gostoso,<br>
+    pedimos que cada um traga seu cooler e a sua bebida favorita. 🍻🥤
+  </div>
 
   <div class="convite">
     Um novo capítulo começa, e queremos celebrá-lo com pessoas queridas.<br>
@@ -164,17 +171,12 @@
 
   <h2>🎁 Sugestão de Presentes</h2>
   <div class="presente-link">
-    Se quiser nos presentear,  
+    Se quiser nos presentear com algum item,  
     <a href="#" onclick="mostrarPresentes()">clique aqui para acessar a lista de presentes</a>.
   </div>
 
   <div id="area-presentes">
     <div id="lista-presentes"></div>
-  </div>
-
-  <div class="footer">
-    Para deixar o encontro ainda mais gostoso,<br>
-    pedimos que cada um traga seu cooler e a sua bebida favorita. 🍻🥤
   </div>
 
   <script>
